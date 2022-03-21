@@ -1,0 +1,4 @@
+Id	Title	Description	Call to Action	Option A	A goes to	OPTION B	B goes to
+scene_0	The Hole	You are in a deep and horrible hole, this is completly new	what do you do?	Find your way to the lake	scene_1	Follow the Tunnels	scene_2
+scene_1	Underground Lake	You find yourself on an intrincated tunnel sistems that reminds you of your worst nightmares	what do you do?	Go back to hole	scene_0	Go back to hole	scene_0
+scene_2	Small Tunel	You are in a deep and horrible hole, this is completly new	what do you do?	Go back to hole	scene_0	Go back to hole	scene_0
