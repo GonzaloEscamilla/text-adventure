@@ -1,8 +1,23 @@
 #include "scene_utils.h"
-
+#include "debug.h"
 
 namespace scene_utils
 {
+
+    SceneOption::SceneOption(std::string description, std::string next_scene_id)
+    {
+        this->description = description;
+        this->next_scene_id = next_scene_id;
+    }
+    std::string SceneOption::get_description()
+    {
+        return this->description;
+    }
+    std::string SceneOption::get_next_scene_id()
+    {
+        return this->next_scene_id;
+    }
+
     Scene::Scene(std::string id, std::string title, std::string description, std::string call_to_action, std::vector<SceneOption> scene_options)
     {
         this->id = id;
@@ -37,25 +52,27 @@ namespace scene_utils
     {
         this->file_name = file_name;
     }
-    std::vector<Scene> ScenesBuilder::get_game_scenes()
+
+    void ScenesBuilder::get_game_scenes_map(std::map<std::string, Scene*>& scenes_map)
     {
         file_elements = serialization_tools::get_file_elements(file_name, 8);
         int rows_amount = file_elements.size()/8;
         
         if(rows_amount%2 != 0)
-            std::cout << "There is an error with the file. Please check that every column is filled!" << std::endl;
+            debug::Debugger::log("There is an error with the file. Please check that every column is filled!");
     
-
-        std::cout << "row amoujnt: " << rows_amount << std::endl;
-
         int columns_amount = 8;
         for (int rows = 1; rows < rows_amount; rows++)
         {
             int current_index = columns_amount * rows;
             
             std::vector<SceneOption> scene_options;
-            scene_options.push_back({file_elements[current_index + 4 ], file_elements[current_index + 5 ], NULL });
-            scene_options.push_back({file_elements[current_index + 6 ], file_elements[current_index + 7 ], NULL });
+
+            debug::Debugger::log(file_elements[current_index + 4 ] + " : " + file_elements[current_index + 5 ]);
+            debug::Debugger::log(file_elements[current_index + 6 ] + " : " + file_elements[current_index + 7 ]);
+
+            scene_options.push_back(SceneOption(file_elements[current_index + 4 ], file_elements[current_index + 5 ]));
+            scene_options.push_back(SceneOption(file_elements[current_index + 6 ], file_elements[current_index + 7 ]));
 
 
             game_scenes.push_back(Scene(file_elements[current_index],
@@ -65,43 +82,12 @@ namespace scene_utils
                                         scene_options));
         }
 
+        debug::Debugger::log("Amounts of scenes: " + game_scenes.size());
+
         for (int i = 0; i < game_scenes.size(); i++)
         {
-
-            std::string id_to_find_option_a = game_scenes[i].get_scene_options()[0].next_scene_id;
-            std::string id_to_find_option_b = game_scenes[i].get_scene_options()[1].next_scene_id;
-            
-            std::cout << "Game Scenes Size: " << game_scenes.size() << std::endl;
-            std::cout << "Id to find A: "  << id_to_find_option_a << std::endl;
-            std::cout << "Id to find B: "  << id_to_find_option_b << std::endl;
-
-            for (int j = 0; j < game_scenes.size(); j++)
-            {
-                if (game_scenes[j].get_id() == id_to_find_option_a)
-                {
-                    //  std::cout << "Enter A" << " The scene is: " << &game_scenes[j].get_id() << std::endl;
-                    //std::cout << "here the pointer is: " << game_scenes[j].get_id() << std::endl;
-                    //std::cout << "The new value: " << game_scenes[i].get_scene_options()[0].next_scene << std::endl;
-
-                    /*
-                    game_scenes[i].get_scene_options()[0].next_scene = &game_scenes[j];
-                    std::cout << "The new value: " << game_scenes[i].get_scene_options()[0].next_scene->get_title() << std::endl;
-                */
-                }
-                if (game_scenes[j].get_id() == id_to_find_option_b)
-                {
-                    // std::cout << "Enter B" << " The scene is: " << &game_scenes[j].get_id() << std::endl;
-                  //  std::cout << "here the pointer is: " << game_scenes[j].get_id() << std::endl;
-                   // std::cout << "The new value: " << game_scenes[i].get_scene_options()[1].next_scene << std::endl;
-
-                    /*
-                    game_scenes[i].get_scene_options()[1].next_scene = &game_scenes[j];
-                */
-                }
-            }
+            scenes_map[game_scenes[i].get_id()] = &game_scenes[i];
         }
 
-        return game_scenes;
     }
-
 }

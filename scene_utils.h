@@ -5,17 +5,21 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map> 
 #include "tsv_parser.h"
-
-
+#include "debug.h"
 
 namespace scene_utils
 {
-    struct SceneOption
+    class SceneOption
     {   
-        std::string description;
-        std::string next_scene_id;
-        class Scene* next_scene;
+        public:
+            SceneOption(std::string description, std::string next_scene_id);
+            std::string get_description();
+            std::string get_next_scene_id();
+        private:
+            std::string description;
+            std::string next_scene_id;
     };
 
     class Scene
@@ -41,7 +45,7 @@ namespace scene_utils
     {
         public:
             ScenesBuilder(std::string file_name);
-            std::vector<Scene> get_game_scenes();
+            void get_game_scenes_map(std::map<std::string, Scene*>& scenes_map);
         private:
             std::vector<Scene> game_scenes;
             std::vector<std::string> file_elements;

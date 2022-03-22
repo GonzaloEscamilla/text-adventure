@@ -2,7 +2,7 @@
 #include <vector>
 #include "scene_utils.h"
 #include "display_tools.h"
-
+#include "debug.h"
 //#define _WIN32_WINNT 0x0500
 #include <windows.h>
 #include "tsv_parser.h"
@@ -10,24 +10,24 @@
 using namespace scene_utils;
 
 
-std::vector<Scene> game_scenes;
+//std::vector<Scene> game_scenes;
+std::map<std::string, Scene*> game_scenes_map;
+
 Scene* current_scene;
 bool is_playing;
 
 std::string file_name = "test.tsv";
+
 
 void go_to_next_scene(int option_selected) //TODO: Maybe not the current name.
 {
     switch (option_selected)
     {
     case 1:
-        std::cout << "Current Scene Id: " << current_scene->get_id() << std::endl; 
-        std::cout << "Current Scene OptionA next: " << current_scene->get_scene_options()[0].next_scene_id << std::endl; 
-        std::cout << "Current Scene OptionA scene pointer: " << current_scene->get_scene_options()[0].next_scene->get_id() << std::endl; 
-        current_scene = current_scene->get_scene_options()[0].next_scene;
+        current_scene = game_scenes_map[current_scene->get_scene_options()[0].get_next_scene_id()];
         break;
     case 2:
-        current_scene = current_scene->get_scene_options()[1].next_scene;
+        current_scene = game_scenes_map[current_scene->get_scene_options()[1].get_next_scene_id()];
         break;
     default:
         break;
@@ -36,13 +36,25 @@ void go_to_next_scene(int option_selected) //TODO: Maybe not the current name.
 
 void set_starting_scene()
 {
-    current_scene = &game_scenes[0];
+    //current_scene = &game_scenes[0];
+    debug::Debugger::log("Set Starting Scene...");
+    current_scene = game_scenes_map["scene_0"]; 
+    debug::Debugger::log("Done...");
+    debug::Debugger::log("Testing First Scene Options");
+    debug::Debugger::log("Description A : " + current_scene->get_scene_options()[0].get_description());
+    debug::Debugger::log("Next Scene A : " + current_scene->get_scene_options()[0].get_next_scene_id());
+
 }
 
 void init_scenes()
 {
     scene_utils::ScenesBuilder scenes_builder(file_name);
-    game_scenes = scenes_builder.get_game_scenes();
+    //game_scenes = scenes_builder.get_game_scenes();
+    scenes_builder.get_game_scenes_map(game_scenes_map);
+
+    debug::Debugger::log("After initializaing map");
+    debug::Debugger::log("Scene 1:");
+    debug::Debugger::log(game_scenes_map["scene_0"]->get_title());
 }
 
 void display_current_scene()
@@ -63,12 +75,12 @@ void handle_user_input(std::string user_input)
 {
     if (user_input == "1")
     {
-        //std::cout << "Option A" << std::endl;
+        debug::Debugger::log("Option A selected");
         go_to_next_scene(1);
     }
     if (user_input == "2")
     {
-        //std::cout << "Option B" << std::endl;
+        debug::Debugger::log("Option B selected");
         go_to_next_scene(2);
     }
 }
@@ -103,8 +115,6 @@ int main()
 
     SetWindowLong(console, GWL_STYLE, GetWindowLong(console, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
 
-
-  
     start_game();
     return 0;
 }

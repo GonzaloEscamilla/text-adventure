@@ -41,7 +41,7 @@ namespace TUI
 
         for (int i = 0; i < scene_to_display.get_scene_options().size(); i++)
         {
-            std::cout << scene_to_display.get_scene_options()[i].description << std::endl;
+            std::cout << scene_to_display.get_scene_options()[i].get_description() << std::endl;
         }
         
         std::cout << std::endl;
