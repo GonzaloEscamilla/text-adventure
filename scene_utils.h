@@ -25,19 +25,19 @@ namespace scene_utils
     class Scene
     {
         public:
-            Scene(std::string id, std::string title, std::string description, std::string call_to_action, std::vector<SceneOption> scene_options);
+            Scene(std::string id, std::string title, std::string description, std::string call_to_action, std::vector<SceneOption*> scene_options);
             std::string get_id() const;
             std::string get_title() const;
             std::string get_description() const;
             std::string get_call_to_action() const;
-            std::vector<SceneOption> get_scene_options();
+            std::vector<SceneOption*> get_scene_options();
 
         private:
             std::string id;
             std::string title;
             std::string description;
             std::string call_to_action;
-            std::vector<SceneOption> scene_options;
+            std::vector<SceneOption*> scene_options;
     };
 
     
@@ -47,7 +47,7 @@ namespace scene_utils
             ScenesBuilder(std::string file_name);
             void get_game_scenes_map(std::map<std::string, Scene*>& scenes_map);
         private:
-            std::vector<Scene> game_scenes;
+            std::vector<Scene*> game_scenes;
             std::vector<std::string> file_elements;
             std::string file_name;
     };

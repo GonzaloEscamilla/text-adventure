@@ -18,7 +18,7 @@ namespace scene_utils
         return this->next_scene_id;
     }
 
-    Scene::Scene(std::string id, std::string title, std::string description, std::string call_to_action, std::vector<SceneOption> scene_options)
+    Scene::Scene(std::string id, std::string title, std::string description, std::string call_to_action, std::vector<SceneOption*> scene_options)
     {
         this->id = id;
         this->scene_options = scene_options;
@@ -43,7 +43,7 @@ namespace scene_utils
     {
         return call_to_action;
     }
-    std::vector<SceneOption> Scene::get_scene_options()
+    std::vector<SceneOption*> Scene::get_scene_options()
     {
         return scene_options;
     }
@@ -66,16 +66,16 @@ namespace scene_utils
         {
             int current_index = columns_amount * rows;
             
-            std::vector<SceneOption> scene_options;
+            std::vector<SceneOption*> scene_options;
 
             debug::Debugger::log(file_elements[current_index + 4 ] + " : " + file_elements[current_index + 5 ]);
             debug::Debugger::log(file_elements[current_index + 6 ] + " : " + file_elements[current_index + 7 ]);
 
-            scene_options.push_back(SceneOption(file_elements[current_index + 4 ], file_elements[current_index + 5 ]));
-            scene_options.push_back(SceneOption(file_elements[current_index + 6 ], file_elements[current_index + 7 ]));
+            scene_options.push_back(new SceneOption(file_elements[current_index + 4 ], file_elements[current_index + 5 ]));
+            scene_options.push_back(new SceneOption(file_elements[current_index + 6 ], file_elements[current_index + 7 ]));
 
 
-            game_scenes.push_back(Scene(file_elements[current_index],
+            game_scenes.push_back(new Scene(file_elements[current_index],
                                         file_elements[current_index + 1],
                                         file_elements[current_index + 2],
                                         file_elements[current_index + 3],
@@ -86,7 +86,7 @@ namespace scene_utils
 
         for (int i = 0; i < game_scenes.size(); i++)
         {
-            scenes_map[game_scenes[i].get_id()] = &game_scenes[i];
+            scenes_map[game_scenes[i]->get_id()] = game_scenes[i];
         }
 
     }

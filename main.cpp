@@ -24,10 +24,10 @@ void go_to_next_scene(int option_selected) //TODO: Maybe not the current name.
     switch (option_selected)
     {
     case 1:
-        current_scene = game_scenes_map[current_scene->get_scene_options()[0].get_next_scene_id()];
+        current_scene = game_scenes_map[current_scene->get_scene_options()[0]->get_next_scene_id()];
         break;
     case 2:
-        current_scene = game_scenes_map[current_scene->get_scene_options()[1].get_next_scene_id()];
+        current_scene = game_scenes_map[current_scene->get_scene_options()[1]->get_next_scene_id()];
         break;
     default:
         break;
@@ -41,8 +41,8 @@ void set_starting_scene()
     current_scene = game_scenes_map["scene_0"]; 
     debug::Debugger::log("Done...");
     debug::Debugger::log("Testing First Scene Options");
-    debug::Debugger::log("Description A : " + current_scene->get_scene_options()[0].get_description());
-    debug::Debugger::log("Next Scene A : " + current_scene->get_scene_options()[0].get_next_scene_id());
+    debug::Debugger::log("Description A : " + current_scene->get_scene_options()[0]->get_description());
+    debug::Debugger::log("Next Scene A : " + current_scene->get_scene_options()[0]->get_next_scene_id());
 
 }
 
@@ -114,6 +114,8 @@ int main()
     MoveWindow( console, ConsoleRect.left, ConsoleRect.top, 1024, 720, TRUE );
 
     SetWindowLong(console, GWL_STYLE, GetWindowLong(console, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
+
+    debug::Debugger::set_on_off(false);
 
     start_game();
     return 0;

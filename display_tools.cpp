@@ -28,6 +28,7 @@ namespace TUI
 
     void display_scene(scene_utils::Scene scene_to_display)
     {
+        std::cout << std::endl << std::endl;
         std::cout << scene_to_display.get_title() << std::endl;
         std::cout << "--------------" << std::endl;
         std::cout << std::endl;
@@ -41,7 +42,7 @@ namespace TUI
 
         for (int i = 0; i < scene_to_display.get_scene_options().size(); i++)
         {
-            std::cout << scene_to_display.get_scene_options()[i].get_description() << std::endl;
+            std::cout << scene_to_display.get_scene_options()[i]->get_description() << std::endl;
         }
         
         std::cout << std::endl;
