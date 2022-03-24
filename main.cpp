@@ -3,21 +3,15 @@
 #include "scene_utils.h"
 #include "display_tools.h"
 #include "debug.h"
-//#define _WIN32_WINNT 0x0500
 #include <windows.h>
 #include "tsv_parser.h"
 
 using namespace scene_utils;
 
-
-//std::vector<Scene> game_scenes;
 std::map<std::string, Scene*> game_scenes_map;
-
 Scene* current_scene;
 bool is_playing;
-
 std::string file_name = "test.tsv";
-
 
 void go_to_next_scene(int option_selected) //TODO: Maybe not the current name.
 {
@@ -43,7 +37,6 @@ void set_starting_scene()
     debug::Debugger::log("Testing First Scene Options");
     debug::Debugger::log("Description A : " + current_scene->get_scene_options()[0]->get_description());
     debug::Debugger::log("Next Scene A : " + current_scene->get_scene_options()[0]->get_next_scene_id());
-
 }
 
 void init_scenes()
@@ -106,7 +99,6 @@ void start_game()
 
 int main()
 {
-
     HWND console = GetConsoleWindow();
     RECT ConsoleRect;
     GetWindowRect(console, &ConsoleRect);

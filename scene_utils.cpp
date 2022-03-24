@@ -1,52 +1,7 @@
 #include "scene_utils.h"
-#include "debug.h"
 
 namespace scene_utils
 {
-
-    SceneOption::SceneOption(std::string description, std::string next_scene_id)
-    {
-        this->description = description;
-        this->next_scene_id = next_scene_id;
-    }
-    std::string SceneOption::get_description()
-    {
-        return this->description;
-    }
-    std::string SceneOption::get_next_scene_id()
-    {
-        return this->next_scene_id;
-    }
-
-    Scene::Scene(std::string id, std::string title, std::string description, std::string call_to_action, std::vector<SceneOption*> scene_options)
-    {
-        this->id = id;
-        this->scene_options = scene_options;
-        this->title = title;
-        this->description = description;
-        this->call_to_action = call_to_action;
-    }
-
-    std::string Scene::get_id() const
-    {
-        return id;
-    }
-    std::string Scene::get_title() const
-    {
-        return title;
-    }
-    std::string Scene::get_description() const
-    {
-        return description;
-    }
-    std::string Scene::get_call_to_action() const
-    {
-        return call_to_action;
-    }
-    std::vector<SceneOption*> Scene::get_scene_options()
-    {
-        return scene_options;
-    }
 
     ScenesBuilder::ScenesBuilder(std::string file_name)
     {
@@ -90,4 +45,49 @@ namespace scene_utils
         }
 
     }
+
+    Scene::Scene(std::string id, std::string title, std::string description, std::string call_to_action, std::vector<SceneOption*> scene_options)
+    {
+        this->id = id;
+        this->scene_options = scene_options;
+        this->title = title;
+        this->description = description;
+        this->call_to_action = call_to_action;
+    }
+
+    std::string Scene::get_id() const
+    {
+        return id;
+    }
+    std::string Scene::get_title() const
+    {
+        return title;
+    }
+    std::string Scene::get_description() const
+    {
+        return description;
+    }
+    std::string Scene::get_call_to_action() const
+    {
+        return call_to_action;
+    }
+    std::vector<SceneOption*> Scene::get_scene_options()
+    {
+        return scene_options;
+    }
+
+    SceneOption::SceneOption(std::string description, std::string next_scene_id)
+    {
+        this->description = description;
+        this->next_scene_id = next_scene_id;
+    }
+    std::string SceneOption::get_description()
+    {
+        return this->description;
+    }
+    std::string SceneOption::get_next_scene_id()
+    {
+        return this->next_scene_id;
+    }
+
 }
