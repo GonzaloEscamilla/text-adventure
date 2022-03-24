@@ -17,7 +17,8 @@ namespace TUI
     };
 
     std::string build_title_header();
-    void display_scene(scene_utils::Scene scene_to_display);
+    void display_scene(scene_utils::Scene scene_to_display, bool format_text, int amount_of_chars_per_line);
+    void format_text_block(std::string& text_to_format, int lenght_until_new_line);
 }
 
 #endif

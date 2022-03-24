@@ -49,7 +49,7 @@ namespace game
 
     void GameState::display_current_scene()
     {
-        TUI::display_scene(*current_scene);
+        TUI::display_scene(*current_scene, this->game_settings->get_format_text(), this->game_settings->get_amount_chars_per_line());
     }
 
     std::string GameState::get_user_input()

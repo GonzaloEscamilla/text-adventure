@@ -1,3 +1,5 @@
+# Reamember that on windows and with this g++ compiler version to execute the Makefile you use mingw32-make.exe
+
 # Specify the compiler
 CC=g++
 #LINK=g++

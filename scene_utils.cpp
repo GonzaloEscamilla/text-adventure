@@ -89,5 +89,5 @@ namespace scene_utils
     {
         return this->next_scene_id;
     }
-    
+
 }
