@@ -1,5 +1,5 @@
-#ifndef _GAME_
-#define _GAME_
+#ifndef _GAME_HEADER_
+#define _GAME_HEADER_
 
 #include <iostream>
 #include <map>
@@ -9,6 +9,7 @@
 #include "debug.h"
 #include <windows.h>
 #include "tsv_parser.h"
+#include "game_settings.h"
 
 using namespace scene_utils;
 
@@ -17,10 +18,11 @@ namespace game
     class GameState
     {
     public:
-        GameState();
-        void start_game(std::string source_file_name);
+        GameState(GameSettings* game_settings);
+        void start_game();
 
     private:
+        GameSettings* game_settings;
         void init_scenes(std::string source_file_name);
         void set_starting_scene();
         void game_loop();
@@ -33,7 +35,8 @@ namespace game
         Scene* current_scene;
         bool is_playing = false;
     };
-} 
 
+
+} 
 
 #endif

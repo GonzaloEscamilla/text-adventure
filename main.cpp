@@ -21,8 +21,10 @@ int main()
 
     debug::Debugger::set_on_off(true);
 
-    game::GameState* GameState = new game::GameState();
-    GameState->start_game("test.tsv");
+    game::GameSettings* GameSettings = new game::GameSettings("test.tsv", true, false);
+
+    game::GameState* GameState = new game::GameState(GameSettings);
+    GameState->start_game();
 
     return 0;
 }

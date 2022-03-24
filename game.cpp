@@ -4,18 +4,19 @@ using namespace scene_utils;
 
 namespace game
 {
-    GameState::GameState()
+    GameState::GameState(GameSettings* game_settings)
     {
-        //start_game("test.tsv");
+        this->game_settings = game_settings;
+        debug::Debugger::set_on_off(this->game_settings->get_is_debugger_active());
     }
 
-    void GameState::start_game(std::string source_file_name)
+    void GameState::start_game()
     {
         debug::Debugger::log("Start Game");
 
         this->is_playing = true; // Ask a dev what is the diferentece between this and without the hits in the context of the class.
 
-        init_scenes(source_file_name);
+        init_scenes(this->game_settings->get_source_file_name());
         set_starting_scene();
         game_loop();
     }
@@ -84,6 +85,7 @@ namespace game
             break;
         }
     }
+
 } 
 
 
