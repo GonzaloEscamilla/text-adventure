@@ -14,12 +14,15 @@ namespace game
     {
         return this->scenes_source_file_name;
     }
+
     bool GameSettings::get_is_debugger_active()
     {
         return this->is_debugger_active;
     }
+
     bool GameSettings::get_refresh_console()
     {
         return this->refresh_console;
     }
+    
 }

@@ -20,6 +20,7 @@ namespace game
         set_starting_scene();
         game_loop();
     }
+
     void GameState::init_scenes(std::string source_file_name)
     {
         scene_utils::ScenesBuilder scenes_builder(source_file_name);
@@ -27,6 +28,7 @@ namespace game
 
         debug::Debugger::log("First Scene: " + game_scenes_map["scene_0"]->get_title());
     }
+
     void GameState::set_starting_scene()
     {
         debug::Debugger::log("Set Starting Scene...");
@@ -35,6 +37,7 @@ namespace game
 
         debug::Debugger::log("Done...");
     }
+
     void GameState::game_loop()
     {
         while (is_playing) // TODO: Whe need an exit condition.
@@ -71,6 +74,7 @@ namespace game
             set_next_scene(2);
         }
     }
+    
     void GameState::set_next_scene(int option_selected) //TODO: Maybe not the current name.
     {
         switch (option_selected)

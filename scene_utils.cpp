@@ -23,9 +23,6 @@ namespace scene_utils
             
             std::vector<SceneOption*> scene_options;
 
-            debug::Debugger::log(file_elements[current_index + 4 ] + " : " + file_elements[current_index + 5 ]);
-            debug::Debugger::log(file_elements[current_index + 6 ] + " : " + file_elements[current_index + 7 ]);
-
             scene_options.push_back(new SceneOption(file_elements[current_index + 4 ], file_elements[current_index + 5 ]));
             scene_options.push_back(new SceneOption(file_elements[current_index + 6 ], file_elements[current_index + 7 ]));
 
@@ -40,10 +37,7 @@ namespace scene_utils
         debug::Debugger::log("Amounts of scenes: " + game_scenes.size());
 
         for (int i = 0; i < game_scenes.size(); i++)
-        {
             scenes_map[game_scenes[i]->get_id()] = game_scenes[i];
-        }
-
     }
 
     Scene::Scene(std::string id, std::string title, std::string description, std::string call_to_action, std::vector<SceneOption*> scene_options)
@@ -59,35 +53,41 @@ namespace scene_utils
     {
         return id;
     }
+
     std::string Scene::get_title() const
     {
         return title;
     }
+
     std::string Scene::get_description() const
     {
         return description;
     }
+
     std::string Scene::get_call_to_action() const
     {
         return call_to_action;
     }
+
     std::vector<SceneOption*> Scene::get_scene_options()
     {
         return scene_options;
     }
-
+    
     SceneOption::SceneOption(std::string description, std::string next_scene_id)
     {
         this->description = description;
         this->next_scene_id = next_scene_id;
     }
+
     std::string SceneOption::get_description()
     {
         return this->description;
     }
+
     std::string SceneOption::get_next_scene_id()
     {
         return this->next_scene_id;
     }
-
+    
 }
